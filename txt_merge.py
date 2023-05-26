@@ -1,3 +1,5 @@
+#경로의 텍스트 파일을 합치기 위해 작성한 코드임
+
 import os
 
 def merge_text_files(folder_path, output_file):
