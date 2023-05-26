@@ -1,6 +1,6 @@
 #경로의 텍스트 파일을 합치기 위해 작성한 코드임
 
-import os
+import os #os 임포트 한다
 
 def merge_text_files(folder_path, output_file):
     merged_text = ''
