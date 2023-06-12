@@ -1,0 +1,22 @@
+#도커 이미지 확인
+  docker image ls
+
+
+# 마리아 DB 설치
+	docker run --name mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=kccglass01! mariadb
+	docker run --name mysql -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=kccglass01! mysql
+	
+#마리아 DB 접속
+	docker exec -it mariadb /bin/bash
+	mysql -u root -p kccglass01!
+	 
+→ 오류 bash: mysql: command not found
+  컴퓨터에 mysql 이 설치 되지 않아서 그런가?
+	
+	
+#마리아 DB 대신 mysql 로 설치해보기
+	docker exec -it mysql /bin/bash
+
+#이래도 오류가 있음
+  ERROR 1045 (28000): Access denied for user '-p'@'localhost' (using password: NO
+  
