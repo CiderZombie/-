@@ -32,4 +32,4 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 docker run --name snipedb -d -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=snipe -e MYSQL_USER=snipe -e MYSQL_PASSWORD=12345 -e TZ=Asia/Seoul -p 3306:3306 mysql
 
 # snipe it생성
-docker create --name=snipe-it --link snipe-mysql:db -e PUID=1000 -e PGID=1000 -e DB_CONNECTION=mysql -e DB_HOST=snipe-mysql -e DB_DATABASE=snipe -e DB_USERNAME=snipe -e DB_PASSWORD="Wolfhungrysunset8" -e APP_KEY=base64:5U/KPKw1GN/Rz0fWYO/4FsSOqjmjvDAQzMCqwcAqstc= -p 8082:80 -v /srv/config/snipeit/snipe-conf:/config --restart unless-stopped snipe/snipe-it
+docker run --name=snipe-it --link snipedb -e PUID=1000 -e PGID=1000 -e DB_CONNECTION=mysql -e DB_HOST=snipe-mysql -e DB_DATABASE=snipe -e DB_USERNAME=snipe -e DB_PASSWORD=12345 -e APP_KEY=base64:5U/KPKw1GN/Rz0fWYO/4FsSOqjmjvDAQzMCqwcAqstc= -p 8082:80 --restart unless-stopped snipe/snipe-it
