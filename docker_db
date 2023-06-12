@@ -42,3 +42,6 @@ docker run --name snipe-mysql -d -e MYSQL_ROOT_PASSWORD="Goldpumpkineagle4" -e M
 
 # snipe it생성
 docker create --name=snipe-it --link snipe-mysql:db -e PUID=1000 -e PGID=1000 -e DB_CONNECTION=mysql -e DB_HOST=snipe-mysql -e DB_DATABASE=snipe -e DB_USERNAME=snipe -e DB_PASSWORD="Wolfhungrysunset8" -e APP_KEY=base64:5U/KPKw1GN/Rz0fWYO/4FsSOqjmjvDAQzMCqwcAqstc= -p 8082:80 --restart unless-stopped snipe/snipe-it
+
+# 스타트
+docker start snipe-it
