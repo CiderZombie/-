@@ -8,7 +8,9 @@
 	docker exec -it mysql bash
 	
 #DB 접속
-	mysql -u root -p kccglass01!
+	mysql -u root -p
+한다음에 바로 비밀번호 입력해줄거임
+kccglass01!
 
 
 #이래도 오류가 있음
