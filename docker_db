@@ -44,6 +44,7 @@ docker start snipe-it
 #SNIPE IT 사이트 시작
 docker run --name snipe-mysql --env-file=my_env_file --mount source=snipesql-vol,target=/var/lib/mysql -d -P mysql
 
+사이트 → 내입맛으로 바꾼 mysql 실행 도커
 docker run --name snipedb -d -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=snipe -e MYSQL_USER=snipe -e MYSQL_PASSWORD=1234 -e TZ=Asia/Seoul -p 3306:3306 mysql
 
 
