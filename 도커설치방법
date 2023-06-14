@@ -1,0 +1,35 @@
+6. 설치방법
+도커가 설치되어 있는 기기의 root계정의 SSH상에서 아래 명령어를 입력하면 됩니다. 명령어는 x64, arm 32비트, arm 64비트 기기에서 모두 동일합니다. 
+
+*관련글 : 리눅스나 CoreELEC 설치한 안드로이드 박스에 Putty로 SSH 접속하기( https://blog.naver.com/destinyrev/222509626940 )
+ 
+1)maria db 컨테이너 생성
+docker run -d --name snipe-it_db --restart=always -v snipe-it_db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=test -e MYSQL_DATABASE=snipe -e MYSQL_USER=test -e MYSQL_PASSWORD=test linuxserver/mariadb:latest
+ 
+1.5)
+MYSQL_ROOT_PASSWORD=test
+MYSQL_USER=test
+MYSQL_PASSWORD=test
+ 
+에서 root 계정 비밀번호와 사용자 계정명, 사용자 계정 비밀번호는 본인이 쓸 걸로 바꿔주셔야 합니다. 그냥 복사 붙여넣기 해도 작동은 됩니다만, 아무래도 보안 상 안 좋겠죠.
+ 
+2)snipe-it 컨테이너 생성
+docker run -d --name=snipe-it -e PUID=0 -e PGID=0 -p 8090:80 -e APP_URL=192.168.0.x:8090 -e MYSQL_PORT_3306_TCP_ADDR=snipe-it_db -e MYSQL_PORT_3306_TCP_PORT=3306 -e MYSQL_DATABASE=snipe -e MYSQL_USER=test -e MYSQL_PASSWORD=test -e APP_TIMEZONE=Asia/Seoul -e APP_LOCALE=ko -v snipe-it_data:/config --link snipe-it_db:snipe-it_db --restart always linuxserver/snipe-it:latest
+ 
+2.5)
+-e APP_URL=192.168.0.x:8090
+에서 자신의 NAS의 IP로 바꿔주셔야 합니다. 포트는 그냥 쓰셔도 됩니다.
+-e MYSQL_USER=test 
+-e MYSQL_PASSWORD=test
+에서 사용자 계정과 비밀번호는 1)의 maria db에서 입력한 것으로 해야 합니다.
+ 
+메일도 설정해서 쓸 거면 아래의 옵션을 추가로 넣어줘야 합니다.
+-e MAIL_PORT_587_TCP_ADDR=SMTP mailserver ip or hostname
+-e MAIL_PORT_587_TCP_PORT=SMTP mailserver port
+-e MAIL_ENV_FROM_ADDR=The email address mail should be replied to and listed when sent
+-e MAIL_ENV_FROM_NAME=The name listed on email sent from the default account on the system
+-e MAIL_ENV_ENCRYPTION=Mail encryption to use IE tls
+-e MAIL_ENV_USERNAME=SMTP server login username
+-e MAIL_ENV_PASSWORD=SMTP server login password
+
+출처: <https://blog.naver.com/PostView.naver?blogId=destinyrev&logNo=222546662984&redirect=Dlog&widgetTypeCall=true&topReferer=https%3A%2F%2Fwww.google.co.kr%2F&directAccess=false> 
