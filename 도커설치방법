@@ -4,7 +4,7 @@
 *관련글 : 리눅스나 CoreELEC 설치한 안드로이드 박스에 Putty로 SSH 접속하기( https://blog.naver.com/destinyrev/222509626940 )
  
 1)maria db 컨테이너 생성
-docker run -d --name snipe-it_db --restart=always -v snipe-it_db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=test -e MYSQL_DATABASE=snipe -e MYSQL_USER=test -e MYSQL_PASSWORD=test linuxserver/mariadb:latest
+docker run -d --name snipe-it_db -p 3306:3306 --restart=always -v snipe-it_db:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=test -e MYSQL_DATABASE=snipe -e MYSQL_USER=test -e MYSQL_PASSWORD=test linuxserver/mariadb:latest
  
 1.5)
 MYSQL_ROOT_PASSWORD=test
@@ -14,7 +14,7 @@ MYSQL_PASSWORD=test
 에서 root 계정 비밀번호와 사용자 계정명, 사용자 계정 비밀번호는 본인이 쓸 걸로 바꿔주셔야 합니다. 그냥 복사 붙여넣기 해도 작동은 됩니다만, 아무래도 보안 상 안 좋겠죠.
  
 2)snipe-it 컨테이너 생성
-docker run -d --name=snipe-it -e PUID=0 -e PGID=0 -p 8090:80 -e APP_URL=192.168.0.x:8090 -e MYSQL_PORT_3306_TCP_ADDR=snipe-it_db -e MYSQL_PORT_3306_TCP_PORT=3306 -e MYSQL_DATABASE=snipe -e MYSQL_USER=test -e MYSQL_PASSWORD=test -e APP_TIMEZONE=Asia/Seoul -e APP_LOCALE=ko -v snipe-it_data:/config --link snipe-it_db:snipe-it_db --restart always linuxserver/snipe-it:latest
+docker run -d --name=snipe-it -e PUID=0 -e PGID=0 -p 8090:80 -e APP_URL=172.22.16.1:8090 -e MYSQL_PORT_3306_TCP_ADDR=snipe-it_db -e MYSQL_PORT_3306_TCP_PORT=3306 -e MYSQL_DATABASE=snipe -e MYSQL_USER=test -e MYSQL_PASSWORD=test -e APP_TIMEZONE=Asia/Seoul -e APP_LOCALE=ko -v snipe-it_data:/config --link snipe-it_db:snipe-it_db --restart always linuxserver/snipe-it:latest
  
 2.5)
 -e APP_URL=192.168.0.x:8090
@@ -32,4 +32,5 @@ docker run -d --name=snipe-it -e PUID=0 -e PGID=0 -p 8090:80 -e APP_URL=192.168.
 -e MAIL_ENV_USERNAME=SMTP server login username
 -e MAIL_ENV_PASSWORD=SMTP server login password
 
-출처: <https://blog.naver.com/PostView.naver?blogId=destinyrev&logNo=222546662984&redirect=Dlog&widgetTypeCall=true&topReferer=https%3A%2F%2Fwww.google.co.kr%2F&directAccess=false> 
+
+https://blog.naver.com/destinyrev/222546662984
