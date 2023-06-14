@@ -1,8 +1,12 @@
-Mysql 설정
-
+1) Mysql 컨테이너 설정
 docker run --name snipe-mysql --mount source=snipesql-vol,target=/var/lib/mysql -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=snipeit -e MYSQL_USER=snipeit -e MYSQL_PASSWORD=1234 mysql
 
-SNIPE it 설정
-docker run -d -p 80:80 --name="snipeit" --link snipe-mysql:mysql --mount source=snipe-vol,dst=/var/lib/snipeit -e APP_ENV=production -e APP_DEBUG=false -e APP_KEY=base64:sOcifHyTkBvGPa9eQl//3EFdnKYehGHJ0wBkkzYqK0g= -e APP_URL=http://175.192.159.53:80 -e APP_TIMEZONE=ASIA/Seoul -e APP_LOCALE=ko snipe/snipe-it
+2)snipe-it appkey 세팅
+docker run --rm snipe/snipe-it
 
-URL DATABASE 오류가 났고 포트 개념 이해 필요한다
+3)SNIPE it 설정
+docker run -d -p 80:80 --name="snipeit" --link snipe-mysql:mysql --mount source=snipe-vol,dst=/var/lib/snipeit -e APP_ENV=production -e APP_DEBUG=false -e APP_KEY=base64:S0FZ4feKKxmokGDIdmLS5G3F0OufsAn9oieG3oYfDM4= -e APP_URL=http://70.90.32.206 -e APP_TIMEZONE=ASIA/Seoul -e APP_LOCALE=ko -e MYSQL_DATABASE=snipeit -e MYSQL_USER=snipeit -e MYSQL_PASSWORD=1234 snipe/snipe-it
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+이상없이 돌아갔고 사용설명서 봐야함.
+++ 포트 개념이해 필요
